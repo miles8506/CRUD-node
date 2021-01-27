@@ -24,8 +24,7 @@ router.get('/new', (req, res) => {
     });
 });
 router.post('/new', (req, res) => {
-    let saveData = new members(req.body);
-    saveData.save(req.body, (err) => {
+    new members(req.body).save(req.body, (err) => {
         if (err) {
             return res.status(500).end('Server error');
         };
