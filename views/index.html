@@ -27,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Project name</a>
+                <a class="navbar-brand" href="/">Project name</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -90,12 +90,14 @@
                                 <td>{{ $value.habbies }}</td>
                                 <td>
                                     <a href="/edit?id={{ $value.id }}">編輯</a>
-                                    <a href="/delete?id={{ $value.id }}">刪除</a>
+                                    <a href="javascript:if(confirm('確實要刪除嗎?'))location='/delete?id={{ $value.id }}'">刪除
+                                    </a>
                                 </td>
                             </tr>
                             {{/each}}
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>

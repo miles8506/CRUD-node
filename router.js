@@ -1,4 +1,3 @@
-const { query } = require('express');
 const express = require('express');
 const members = require('./members.js');
 const router = express.Router();
@@ -38,7 +37,6 @@ router.get('/edit', (req, res) => {
         if (err) {
             return res.status(500).end('Server error');
         };
-        console.log(members);
         res.render('./edit.html', {
             member: members
         });
@@ -55,7 +53,7 @@ router.post('/edit', (req, res) => {
 });
 
 // 刪除
-router.get('/delete', (req, res) => {
+router.get("/delete", (req, res) => {
     const Id = req.query.id.replace(/"/g, '');
     members.findByIdAndRemove(({ _id: Id }), (err, ret) => {
         if (err) {

@@ -9,7 +9,8 @@ const MemberSchema = new Schema({ //創建了UserSchema的這個構造函數
     sex: {
         type: Number,
         default: 0,
-        enum: [0, 1]
+        enum: [0, 1],
+        required: true,
     },
     age: {
         type: String,
