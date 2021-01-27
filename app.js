@@ -8,4 +8,4 @@ app.engine('html', require('express-art-template'));
 app.use('/public/', express.static('./public'));
 app.use('/node_modules/', express.static('./node_modules'));
 app.use(router);
-app.listen(3200, () => console.log('running'));
+app.listen(5000, () => console.log('running'));

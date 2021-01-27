@@ -1,10 +1,10 @@
+const { query } = require('express');
 const express = require('express');
-const course = require('./course.js');
+const members = require('./members.js');
 const router = express.Router();
-
 // 首頁
 router.get('/', (req, res) => {
-    course.find((err, members) => {
+    members.find((err, members) => {
         if (err) {
             return res.status(500).end('Server error');
         };
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 
 // 新增成員
 router.get('/new', (req, res) => {
-    course.increase((err) => {
+    members.find((err) => {
         if (err) {
             return res.status(500).end('Server error');
         };
@@ -24,7 +24,8 @@ router.get('/new', (req, res) => {
     });
 });
 router.post('/new', (req, res) => {
-    course.increaseGet(req.body, (err) => {
+    let saveData = new members(req.body);
+    saveData.save(req.body, (err) => {
         if (err) {
             return res.status(500).end('Server error');
         };
@@ -34,17 +35,19 @@ router.post('/new', (req, res) => {
 
 // 修改成員
 router.get('/edit', (req, res) => {
-    course.edit(req.query.id, (err, member) => {
+    members.findOne(({ _id: req.query.id }), (err, members) => {
         if (err) {
             return res.status(500).end('Server error');
         };
+        console.log(members);
         res.render('./edit.html', {
-            member: member
+            member: members
         });
     });
 });
 router.post('/edit', (req, res) => {
-    course.editGet(req.body, (err) => {
+    const Id = req.body.id.replace(/"/g, '');
+    members.findByIdAndUpdate(({ _id: Id }), (req.body), (err, ret) => {
         if (err) {
             return res.status(500).end('Server error');
         };
@@ -54,12 +57,12 @@ router.post('/edit', (req, res) => {
 
 // 刪除
 router.get('/delete', (req, res) => {
-    course.del(req.query.id, (err) => {
+    const Id = req.query.id.replace(/"/g, '');
+    members.findByIdAndRemove(({ _id: Id }), (err, ret) => {
         if (err) {
             return res.status(500).end('Server error');
         };
         res.redirect('/');
     });
 });
-
 module.exports = router;
